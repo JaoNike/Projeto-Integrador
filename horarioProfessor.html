@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horários Escolares</title>
+    <title>Horários Escolares</title> 
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -169,7 +169,7 @@
                 </tr>
             </thead>
             <tbody id="scheduleTable">
-                <!-- Conteúdo gerado dinamicamente aqui -->
+                
             </tbody>
         </table>
 
@@ -229,180 +229,8 @@
     </div>
 
     <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-    <script type="text/javascript">
-        // Inicialização da API de EmailJS
-        (function(){
-            emailjs.init("GvWlpEaWfv7cA4QUn");
-        })();
-
-        const scheduleData = {
-            'Segunda-feira': [
-                { subject: 'Matemática', professor: 'Prof. A', room: '101', type: 'Teórica', duration: 50 },
-                { subject: 'Português', professor: 'Prof. B', room: '102', type: 'Teórica', duration: 90 },
-                { subject: 'História', professor: 'Prof. C', room: '103', type: 'Prática', duration: 60 },
-                { subject: 'Geografia', professor: 'Prof. D', room: '104', type: 'Teórica', duration: 75 },
-                { subject: 'Educação Física', professor: 'Prof. F', room: '106', type: 'Prática', duration: 70 }
-            ],
-            'Terça-feira': [
-                { subject: 'Matemática', professor: 'Prof. A', room: '101', type: 'Teórica', duration: 60 },
-                { subject: 'Educação Física', professor: 'Prof. F', room: '106', type: 'Prática', duration: 50 },
-                { subject: 'Artes', professor: 'Prof. G', room: '107', type: 'Prática', duration: 75 },
-                { subject: 'Português', professor: 'Prof. B', room: '102', type: 'Teórica', duration: 90 },
-                { subject: 'Ciências', professor: 'Prof. E', room: '105', type: 'Prática', duration: 55 }
-            ],
-            'Quarta-feira': [
-                { subject: 'História', professor: 'Prof. C', room: '103', type: 'Teórica', duration: 45 },
-                { subject: 'Geografia', professor: 'Prof. D', room: '104', type: 'Teórica', duration: 60 },
-                { subject: 'Matemática', professor: 'Prof. A', room: '101', type: 'Prática', duration: 80 },
-                { subject: 'Português', professor: 'Prof. B', room: '102', type: 'Prática', duration: 50 },
-                { subject: 'Educação Física', professor: 'Prof. F', room: '106', type: 'Prática', duration: 65 }
-            ],
-            'Quinta-feira': [
-                { subject: 'Artes', professor: 'Prof. G', room: '107', type: 'Prática', duration: 60 },
-                { subject: 'História', professor: 'Prof. C', room: '103', type: 'Teórica', duration: 45 },
-                { subject: 'Geografia', professor: 'Prof. D', room: '104', type: 'Prática', duration: 90 },
-                { subject: 'Matemática', professor: 'Prof. A', room: '101', type: 'Teórica', duration: 55 },
-                { subject: 'Ciências', professor: 'Prof. E', room: '105', type: 'Teórica', duration: 75 }
-            ],
-            'Sexta-feira': [
-                { subject: 'Português', professor: 'Prof. B', room: '102', type: 'Teórica', duration: 50 },
-                { subject: 'Ciências', professor: 'Prof. E', room: '105', type: 'Prática', duration: 80 },
-                { subject: 'Educação Física', professor: 'Prof. F', room: '106', type: 'Prática', duration: 60 },
-                { subject: 'Artes', professor: 'Prof. G', room: '107', type: 'Prática', duration: 45 },
-                { subject: 'História', professor: 'Prof. C', room: '103', type: 'Teórica', duration: 90 }
-            ]
-        };
-
-        function loadSchedule() {
-            const scheduleTable = document.getElementById('scheduleTable');
-            scheduleTable.innerHTML = '';
-
-            for (const day in scheduleData) {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td>${day}</td>`;
-                const subjects = scheduleData[day];
-                for (let i = 0; i < 5; i++) {
-                    if (i < subjects.length) {
-                        row.innerHTML += `<td onclick="editSubject('${day}', '${subjects[i].subject}')">${subjects[i].subject}</td>`;
-                    } else {
-                        row.innerHTML += '<td></td>';
-                    }
-                }
-                scheduleTable.appendChild(row);
-            }
-        }
-
-        function editSubject(day, subjectName) {
-            const modal = document.getElementById('editModal');
-            const editDay = document.getElementById('edit-day');
-            const editSubject = document.getElementById('edit-subject');
-            const editProfessor = document.getElementById('edit-professor');
-            const editRoom = document.getElementById('edit-room');
-            const editHours = document.getElementById('edit-hours');
-            const editMinutes = document.getElementById('edit-minutes');
-            const editType = document.getElementById('edit-type');
-
-            const subject = scheduleData[day].find(sub => sub.subject === subjectName);
-
-            if (!subject) return;
-
-            editDay.value = day;
-            editSubject.innerHTML = '';
-            const subjects = ['Matemática', 'Português', 'História', 'Geografia', 'Artes', 'Ciências', 'Educação Física'];
-            subjects.forEach(sub => {
-                const option = document.createElement('option');
-                option.value = sub;
-                option.textContent = sub;
-                if (sub === subject.subject) {
-                    option.selected = true;
-                }
-                editSubject.appendChild(option);
-            });
-            editProfessor.value = subject.professor;
-            editRoom.value = subject.room;
-            const duration = subject.duration;
-            editHours.value = Math.floor(duration / 60);
-            editMinutes.value = duration % 60;
-            editType.value = subject.type;
-
-            modal.style.display = 'flex';
-        }
-
-        function saveEdit() {
-            const day = document.getElementById('edit-day').value;
-            const subjectName = document.getElementById('edit-subject').value;
-            const professor = document.getElementById('edit-professor').value;
-            const room = document.getElementById('edit-room').value;
-            const hours = parseInt(document.getElementById('edit-hours').value);
-            const minutes = parseInt(document.getElementById('edit-minutes').value);
-            const type = document.getElementById('edit-type').value;
-            const duration = (hours * 60) + minutes;
-
-            const subject = scheduleData[day].find(sub => sub.subject === subjectName);
-            if (subject) {
-                subject.professor = professor;
-                subject.room = room;
-                subject.duration = duration;
-                subject.type = type;
-            } else {
-                // Caso o horário não exista, adicione-o.
-                if (!scheduleData[day]) {
-                    scheduleData[day] = [];
-                }
-                scheduleData[day].push({
-                    subject: subjectName,
-                    professor: professor,
-                    room: room,
-                    duration: duration,
-                    type: type
-                });
-            }
-
-            closeEditModal();
-            loadSchedule();
-            showSavingAnimation();
-        }
-
-        function closeEditModal() {
-            const modal = document.getElementById('editModal');
-            modal.style.display = 'none';
-        }
-
-        function showSavingAnimation() {
-            const animation = document.getElementById('savingAnimation');
-            animation.style.display = 'block';
-
-            setTimeout(() => {
-                animation.style.display = 'none';
-            }, 2000);
-        }
-
-        function sendMessage() {
-            const message = document.getElementById('automaticMessage').value;
-            alert(`Mensagem enviada: ${message}`);
-        }
-
-        function sendEmail() {
-            const email = document.getElementById('email').value;
-            const emailStatus = document.getElementById('emailStatus');
-
-            emailjs.send("service_pIntegrador", "template_c8t6245", {
-                to_email: email,
-                message: "Link do site: https://projetoddsintegrador.github.io/IntegradorHorario/"
-            }).then(response => {
-                emailStatus.textContent = "E-mail enviado com sucesso!";
-            }, error => {
-                emailStatus.textContent = "Erro ao enviar o e-mail.";
-            });
-        }
-
-        function goBack() {
-            window.history.back();
-        }
-
-        window.onload = loadSchedule;
-    </script>
+    <script type="text/JavaScript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="module" src="acessarDB.js"></script>
+    <script type="module" src="js/funprofessor.js"></script>
 </body>
 </html>

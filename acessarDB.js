@@ -2,22 +2,20 @@ const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.13
 const { getAnalytics } = await import('https://www.gstatic.com/firebasejs/10.13.0/firebase-analytics.js');
 const {getFirestore, getDoc, getdocs, doc, updateDoc, deleteDoc} = await import('https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js');
 
-    // Configura o Firebase
-    const firebaseConfig = {
-        apiKey: "AIzaSyB5EV2ZmsAXbQ0b4UxhQCyRH83Z0nAcrFw",
-        authDomain: "integradorhorarios.firebaseapp.com",
-        projectId: "integradorhorarios",
-        storageBucket: "integradorhorarios.appspot.com",
-        messagingSenderId: "607685995716",
-        appId: "1:607685995716:web:88bf32fe4e3aaf820aad91",
-        measurementId: "G-QDZVL5H5ZJ"
-    };     
-    
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+// Configura o Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyB5EV2ZmsAXbQ0b4UxhQCyRH83Z0nAcrFw",
+    authDomain: "integradorhorarios.firebaseapp.com",
+    projectId: "integradorhorarios",
+    storageBucket: "integradorhorarios.appspot.com",
+    messagingSenderId: "607685995716",
+    appId: "1:607685995716:web:88bf32fe4e3aaf820aad91",
+    measurementId: "G-QDZVL5H5ZJ"
+};     
 
-      
-    const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+export const db = getFirestore(app);
 
     // Função para buscar dados de uma aula específica de um dia da semana
     async function obterAula(diaSemana, aula) {
@@ -34,8 +32,8 @@ const {getFirestore, getDoc, getdocs, doc, updateDoc, deleteDoc} = await import(
         }
     }
     
-    export let horarioAulas = [
-    {
+export const horarioAulas = [
+        {
             horario: "07:00 - 07:45",
             segunda: {},
             terca: {},

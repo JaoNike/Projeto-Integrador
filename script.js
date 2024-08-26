@@ -9,4 +9,5 @@ function logoff() {
 
     // Redireciona para a página de login
     window.location.href = "./index.html"; // Substitua pelo caminho correto para a página de login
+
 }

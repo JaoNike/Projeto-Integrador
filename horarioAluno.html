@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horário das Aulas</title>
-    <script src="script.js">
-        import {logoff} from "./script.js"
-    </script>
+    <script src="script.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -177,55 +175,55 @@
         <p>&copy; 2024 Horário de Aulas</p>
     </footer>
 
-    <script type="module" src="./acessarDB.js" defer></script>
+    <script type="module">
 
-    <script type="module"> 
-    import {horarioAulas} from "./acessarDB.js"
+        import {horarioAulas} from "./acessarDB.js"
 
-    function preencherTabela() {
-        const tabela = document.getElementById("tabela-horario");
-
-        horarioAulas.forEach(aula => {
-            const linha = document.createElement("tr");
-
-            const celulaHorario = document.createElement("td");
-            celulaHorario.textContent = aula.horario;
-            linha.appendChild(celulaHorario);
-
-            ["segunda", "terca", "quarta", "quinta", "sexta"].forEach(dia => {
-                const celula = document.createElement("td");
-                const aulaDia = aula[dia];
+        function preencherTabela() {
+            const tabela = document.getElementById("tabela-horario");
+            
+            horarioAulas.forEach(aula => {
+                const linha = document.createElement("tr");
                 
-                celula.innerHTML = `
+                const celulaHorario = document.createElement("td");
+                celulaHorario.textContent = aula.horario;
+                linha.appendChild(celulaHorario);
+                
+                ["segunda", "terca", "quarta", "quinta", "sexta"].forEach(dia => {
+                    const celula = document.createElement("td");
+                    const aulaDia = aula[dia];
+                    
+                    celula.innerHTML = `
                     <div><strong>${aulaDia.disciplina}</strong></div>
                     <div>${aulaDia.sala}</div>
                     <div>${aulaDia.professor}</div>
-                `;
-
-                if (aulaDia.especial) {
-                    celula.classList.add("especial");
-                } else if (aulaDia.prova) {
-                    celula.classList.add("prova");
-                } else {
-                    celula.classList.add("normal");
-                }
-                
-                celula.addEventListener('click', () => {
+                    `;
+                    
                     if (aulaDia.especial) {
-                        alert(`Aula especial de ${aulaDia.disciplina} com ${aulaDia.professor}`);
+                        celula.classList.add("especial");
                     } else if (aulaDia.prova) {
-                        alert(`Prova de ${aulaDia.disciplina} com ${aulaDia.professor}`);
+                        celula.classList.add("prova");
+                    } else {
+                        celula.classList.add("normal");
                     }
+                    
+                    celula.addEventListener('click', () => {
+                        if (aulaDia.especial) {
+                            alert(`Aula especial de ${aulaDia.disciplina} com ${aulaDia.professor}`);
+                        } else if (aulaDia.prova) {
+                            alert(`Prova de ${aulaDia.disciplina} com ${aulaDia.professor}`);
+                        }
+                    });
+                    
+                    linha.appendChild(celula);
                 });
-
-                linha.appendChild(celula);
+                
+                tabela.appendChild(linha);
             });
+        }
 
-            tabela.appendChild(linha);
-        });
-    }
-    
-    preencherTabela();
+        preencherTabela();
+      
     </script>
 </body>
 </html>
