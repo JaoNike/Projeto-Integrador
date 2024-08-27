@@ -8,49 +8,12 @@ import { db } from "../acessarDB.js";
 const diasSemana = ['segunda-feira', 'terca-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira'];
 const aulas = ["aula 1", "aula 2", "aula 3", "aula 4", "aula 5"];
 
-let scheduleData = [
-    {
-        segunda: {},
-        terca: {},
-        quarta: {},
-        quinta: {},
-        sexta: {}
-    },
-    {
-        segunda: {},
-        terca: {},
-        quarta: {},
-        quinta: {},
-        sexta: {}
-    },
-    {
-        segunda: {},
-        terca: {},
-        quarta: {},
-        quinta: {},
-        sexta: {}
-    },
-    {
-        segunda: {},
-        terca: {},
-        quarta: {},
-        quinta: {},
-        sexta: {}
-    },
-    {
-        segunda: {},
-        terca: {},
-        quarta: {},
-        quinta: {},
-        sexta: {}
-    }
-];
-
 async function obterAula(diaSemana, aula) {
     const docRef = doc(db, diaSemana, aula);
     const docSnap = await getDoc(docRef);
     
     if (docSnap.exists()) {     
+        console.log(docSnap.data());
         return docSnap.data();
         
     } else {
@@ -59,66 +22,42 @@ async function obterAula(diaSemana, aula) {
     }
 };
 
-async function obterAulasSemana() {
-    for (let i = 0; i < scheduleData.length; i++) {
-        for (let j = 0; j < diasSemana.length; j++) {
-            const dadosAula = await obterAula(diasSemana[j], aulas[i]);
-            if (dadosAula) {
-                scheduleData[i][diasSemana[j].replace("-feira", "")] = {
-                // Verifica se o índice `i` é menor que o número de aulas no dia atual
-                        materia: dadosAula.materia,
-                        professor: dadosAula.professor,
-                        sala: `Sala ${dadosAula.sala}`,
-                        tipo: dadosAula.tipo,
-                        duracao: dadosAula.duracao || 45 // Usa a duração fornecida ou 45 como padrão
-                };
-            }
-        }
-    }
-};
 
-obterAulasSemana();
+const scheduleTable = document.getElementById('scheduleTable');
 
-let materiaQuarta = scheduleData[0].segunda.materia;
+//preenche a tabela
+for (let i = 0; i < 5; i++) {
+    const row = document.createElement('tr');
+    
+    // Adiciona o nome do dia da semana na primeira célula
+    const dayCell = document.createElement('td');
+    dayCell.textContent = diasSemana[i];
+    row.appendChild(dayCell);
 
-console.log("teste 1: ",scheduleData,"teste 2:", materiaQuarta);
-
-window.loadSchedule = function() {
-    const scheduleTable = document.getElementById('scheduleTable');
-    scheduleTable.innerHTML = '';
-
-    for (let i = 0; i < 5; i++) {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${diasSemana[i]}</td>`;
-        const dia = diasSemana[i];
-
-        const subjects = scheduleData[i];
+    // Adiciona as matérias à linha
+    for (let j = 0; j < 5; j++) {
+        const cell = document.createElement('td');
         
-        //const materia = subjects[i];
-        console.log("Testeeee:  ",scheduleData[0].segunda.materia);
-                
+        const dadosAula = await obterAula(diasSemana[i], aulas[j]);
+        if (dadosAula) {
+    
+            // Exibe a matéria e adiciona a função de edição ao clique
+            cell.textContent = dadosAula.materia;
+            cell.onclick = () => editSubject(diasSemana[i], aulas[j]);
 
-        for (let j = 0; j < 5; j++) {
-            const materia = subjects[i];
-            console.log(materia);
-            if (j < subjects.length) {
-                // Exibe a matéria e adiciona a função de edição ao clique
-                row.innerHTML += `
-                    <td onclick="editSubject('${dia}', '${materia}')">
-                        ${materia}
-                    </td>`;
-            } else {
-                row.innerHTML += '<td></td>'; // Célula vazia se não houver matéria
-            }
+        } else {
+            // Adiciona uma célula vazia se não houver matéria
+            cell.textContent = '';
         }
-        scheduleTable.appendChild(row);
+        row.appendChild(cell);
     }
-};
 
-loadSchedule();
+    // Adiciona a linha à tabela
+    scheduleTable.appendChild(row);
+}
 
-window.editSubject = function (dia, materia) {
-    console.log('Editando matéria:', materia, 'do dia:', dia);
+window.editSubject = function (dia, aula) {
+    console.log('Editando aula:', aula, 'do dia:', dia);
     const modal = document.getElementById('editModal');
     const editDay = document.getElementById('edit-day');
     const editSubject = document.getElementById('edit-subject');
@@ -128,7 +67,7 @@ window.editSubject = function (dia, materia) {
     const editMinutes = document.getElementById('edit-minutes');
     const editType = document.getElementById('edit-type');
 
-    const subject = scheduleData[dia].find(sub => sub.materia === materia);
+    //const subject = .find(sub => sub.dia === aula);
 
     if (!subject) return;
 
@@ -225,5 +164,3 @@ window.sendEmail = function () {
 window.goBack = function () {
     window.history.back();
 };
-
-window.onload = loadSchedule;

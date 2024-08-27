@@ -31,7 +31,7 @@ export const db = getFirestore(app);
             return null;
         }
     }
-    
+
 export const horarioAulas = [
         {
             horario: "07:00 - 07:45",
