@@ -57,6 +57,7 @@ for (let i = 0; i < 5; i++) {
 }
 
 window.editSubject = function (dia, aula) {
+    const database = obterAula(dia, aula);
     console.log('Editando aula:', aula, 'do dia:', dia);
     const modal = document.getElementById('editModal');
     const editDay = document.getElementById('edit-day');
@@ -67,7 +68,7 @@ window.editSubject = function (dia, aula) {
     const editMinutes = document.getElementById('edit-minutes');
     const editType = document.getElementById('edit-type');
 
-    //const subject = .find(sub => sub.dia === aula);
+    const subject = database;
 
     if (!subject) return;
 
@@ -91,42 +92,43 @@ window.editSubject = function (dia, aula) {
     editType.value = subject.type;
 
     modal.style.display = 'flex';
-};
 
-window. saveEdit = function() {
-    const dia = document.getElementById('edit-day').value;
-    const subjectName = document.getElementById('edit-subject').value;
-    const professor = document.getElementById('edit-professor').value;
-    const sala = document.getElementById('edit-room').value;
-    const hours = parseInt(document.getElementById('edit-hours').value);
-    const minutes = parseInt(document.getElementById('edit-minutes').value);
-    const tipo = document.getElementById('edit-type').value;
-    const duracao = (hours * 60) + minutes;
-
-    const materia = scheduleData[dia].find(sub => sub.subject === subjectName);
-    if (materia) {
-        materia.professor = professor;
-        materia.sala = sal;
-        materia.duracao = duracao;
-        materia.tipo = tipo;
-    } else {
-        // Caso o horário não exista, adicione-o.
-        if (!scheduleData[dia]) {
-            scheduleData[dia] = [];
+    window. saveEdit = function() {
+        const dia = document.getElementById('edit-day').value;
+        const subjectName = document.getElementById('edit-subject').value;
+        const professor = document.getElementById('edit-professor').value;
+        const sala = document.getElementById('edit-room').value;
+        const hours = parseInt(document.getElementById('edit-hours').value);
+        const minutes = parseInt(document.getElementById('edit-minutes').value);
+        const tipo = document.getElementById('edit-type').value;
+        const duracao = (hours * 60) + minutes;
+    
+        const materia = database
+        if (materia) {
+            materia.professor = professor;
+            materia.sala = sala;
+            materia.duracao = duracao;
+            materia.tipo = tipo;
+        } else {
+            // Caso o horário não exista, adicione-o.
+            if (!scheduleData[dia]) {
+                scheduleData[dia] = [];
+            }
+            scheduleData[dia].push({
+                subject: subjectName,
+                professor: professor,
+                room: room,
+                duration: duration,
+                type: type
+            });
         }
-        scheduleData[dia].push({
-            subject: subjectName,
-            professor: professor,
-            room: room,
-            duration: duration,
-            type: type
-        });
-    }
-
-    closeEditModal();
-    loadSchedule();
-    showSavingAnimation();
+    
+        closeEditModal();
+        loadSchedule();
+        showSavingAnimation();
+    };
 };
+
 
 window.closeEditModal = function() {
     const modal = document.getElementById('editModal');
