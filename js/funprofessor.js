@@ -8,6 +8,44 @@ import { db } from "../acessarDB.js";
 const diasSemana = ['segunda-feira', 'terca-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira'];
 const aulas = ["aula 1", "aula 2", "aula 3", "aula 4", "aula 5"];
 
+let scheduleData = [
+    {
+        segunda: {},
+        terca: {},
+        quarta: {},
+        quinta: {},
+        sexta: {}
+    },
+    {
+        segunda: {},
+        terca: {},
+        quarta: {},
+        quinta: {},
+        sexta: {}
+    },
+    {
+        segunda: {},
+        terca: {},
+        quarta: {},
+        quinta: {},
+        sexta: {}
+    },
+    {
+        segunda: {},
+        terca: {},
+        quarta: {},
+        quinta: {},
+        sexta: {}
+    },
+    {
+        segunda: {},
+        terca: {},
+        quarta: {},
+        quinta: {},
+        sexta: {}
+    }
+];
+
 async function obterAula(diaSemana, aula) {
     const docRef = doc(db, diaSemana, aula);
     const docSnap = await getDoc(docRef);
@@ -19,81 +57,52 @@ async function obterAula(diaSemana, aula) {
         console.log(`Nenhum documento encontrado para ${diaSemana} - ${aula}!`);
         return null;
     }
-}
-
-const scheduleData = {
-    'segunda-feira': [
-        { materia: '', professor: '', sala: '', tipo: '', duracao: 45 },
-        { materia: '', professor: '', sala: '', tipo: '', duracao: 45 },
-        { materia: '', professor: '', sala: '', tipo: '', duracao: 45 },
-        { materia: '', professor: '', sala: '', tipo: '', duracao: 45 },
-        { materia: '', professor: '', sala: '', tipo: '', duracao: 45 }
-    ],
-    'terca-feira': [
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45}
-    ],
-    'quarta-feira': [
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45}
-    ],
-    'quinta-feira': [
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45}
-    ],
-    'sexta-feira': [
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45},
-        {materia: '', professor: '', sala: '', tipo: '', duracao: 45}
-    ]
 };
 
 async function obterAulasSemana() {
-    for (let i = 0; i < aulas.length; i++) {
+    for (let i = 0; i < scheduleData.length; i++) {
         for (let j = 0; j < diasSemana.length; j++) {
             const dadosAula = await obterAula(diasSemana[j], aulas[i]);
             if (dadosAula) {
-                scheduleData[diasSemana[j]][i] = {
-                    materia: dadosAula.materia,
-                    professor: dadosAula.professor,
-                    sala: `Sala ${dadosAula.sala}`,
-                    tipo: dadosAula.tipo,
-                    duracao: 45
+                scheduleData[i][diasSemana[j].replace("-feira", "")] = {
+                // Verifica se o índice `i` é menor que o número de aulas no dia atual
+                        materia: dadosAula.materia,
+                        professor: dadosAula.professor,
+                        sala: `Sala ${dadosAula.sala}`,
+                        tipo: dadosAula.tipo,
+                        duracao: dadosAula.duracao || 45 // Usa a duração fornecida ou 45 como padrão
                 };
             }
         }
     }
-}
+};
 
-obterAulasSemana()
+obterAulasSemana();
+
+let materiaQuarta = scheduleData[0].segunda.materia;
+
+console.log("teste 1: ",scheduleData,"teste 2:", materiaQuarta);
 
 window.loadSchedule = function() {
     const scheduleTable = document.getElementById('scheduleTable');
     scheduleTable.innerHTML = '';
 
-    for (const dia in scheduleData) {
+    for (let i = 0; i < 5; i++) {
         const row = document.createElement('tr');
-        row.innerHTML = `<td>${dia}</td>`;
+        row.innerHTML = `<td>${diasSemana[i]}</td>`;
+        const dia = diasSemana[i];
 
-        let subjects = scheduleData[dia];
+        const subjects = scheduleData[i];
+        
+        //const materia = subjects[i];
+        console.log("Testeeee:  ",scheduleData[0].segunda.materia);
+                
 
-        for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < 5; j++) {
             const materia = subjects[i];
-            if (i < subjects.length) {
-               
+            console.log(materia);
+            if (j < subjects.length) {
                 // Exibe a matéria e adiciona a função de edição ao clique
-                console.log("Dia  ",dia,"  Materia: ", materia.toString());
                 row.innerHTML += `
                     <td onclick="editSubject('${dia}', '${materia}')">
                         ${materia}
@@ -104,9 +113,9 @@ window.loadSchedule = function() {
         }
         scheduleTable.appendChild(row);
     }
-}
+};
 
-loadSchedule()
+loadSchedule();
 
 window.editSubject = function (dia, materia) {
     console.log('Editando matéria:', materia, 'do dia:', dia);
@@ -143,7 +152,7 @@ window.editSubject = function (dia, materia) {
     editType.value = subject.type;
 
     modal.style.display = 'flex';
-}
+};
 
 window. saveEdit = function() {
     const dia = document.getElementById('edit-day').value;
@@ -178,12 +187,12 @@ window. saveEdit = function() {
     closeEditModal();
     loadSchedule();
     showSavingAnimation();
-}
+};
 
 window.closeEditModal = function() {
     const modal = document.getElementById('editModal');
     modal.style.display = 'none';
-}
+};
 
 window.showSavingAnimation = function() {
     const animation = document.getElementById('savingAnimation');
@@ -192,12 +201,12 @@ window.showSavingAnimation = function() {
     setTimeout(() => {
         animation.style.display = 'none';
     }, 2000);
-}
+};
 
 window.sendMessage = function() {
     const message = document.getElementById('automaticMessage').value;
     alert(`Mensagem enviada: ${message}`);
-}
+};
 
 window.sendEmail = function () {
     const email = document.getElementById('email').value;
@@ -211,10 +220,10 @@ window.sendEmail = function () {
     }, error => {
         emailStatus.textContent = "Erro ao enviar o e-mail.";
     });
-}
+};
 
 window.goBack = function () {
     window.history.back();
-}
+};
 
 window.onload = loadSchedule;
