@@ -192,6 +192,7 @@
                 ["segunda", "terca", "quarta", "quinta", "sexta"].forEach(dia => {
                     const celula = document.createElement("td");
                     const aulaDia = aula[dia];
+                    console.log(aulaDia)
                     
                     celula.innerHTML = `
                     <div><strong>${aulaDia.disciplina}</strong></div>
@@ -199,9 +200,9 @@
                     <div>${aulaDia.professor}</div>
                     `;
                     
-                    if (aulaDia.especial) {
+                    if (aulaDia.tipo === "Atividades Especiais") {
                         celula.classList.add("especial");
-                    } else if (aulaDia.prova) {
+                    } else if (aulaDia.tipo === "prova") {
                         celula.classList.add("prova");
                     } else {
                         celula.classList.add("normal");

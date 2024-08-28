@@ -181,16 +181,18 @@ window.sendMessage = async function() {
     const message = document.getElementById('automaticMessage').value;
     const email = document.getElementById('email').value;
     const emailStatus = document.getElementById('emailStatus');
-
-    emailjs.send("service_pIntegrador", "template_c8t6245", {
-        to_email: email,
-        message: message,
-    }).then(response => {
-        emailStatus.textContent = "E-mail enviado com sucesso!";
-    }, error => {
-        emailStatus.textContent = "Erro ao enviar o e-mail.";
-    });
-    alert("Mensagem enviada ");
+    
+    for (let i = 0; i < 5; i++) {
+        emailjs.send("service_pIntegrador", "template_c8t6245", {
+            to_email: email[i],
+            message: "Link do site: https://projetoddsintegrador.github.io/IntegradorHorario/",
+        }).then(response => {
+            emailStatus.textContent = "E-mail enviado com sucesso!";
+        }, error => {
+            emailStatus.textContent = "Erro ao enviar o e-mail.";
+        });
+        console.log("Mensagem enviada ");
+    }
 };
 
 window.sendEmail = function () {

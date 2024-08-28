@@ -17,20 +17,20 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const db = getFirestore(app);
 
-    // Função para buscar dados de uma aula específica de um dia da semana
-    async function obterAula(diaSemana, aula) {
-        const docRef = doc(db, diaSemana, aula);
-        const docSnap = await getDoc(docRef);
+// Função para buscar dados de uma aula específica de um dia da semana
+async function obterAula(diaSemana, aula) {
+    const docRef = doc(db, diaSemana, aula);
+    const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-            
-            return docSnap.data();
-            
-        } else {
-            console.log(`Nenhum documento encontrado para ${diaSemana} - ${aula}!`);
-            return null;
-        }
+    if (docSnap.exists()) {
+        
+        return docSnap.data();
+        
+    } else {
+        console.log(`Nenhum documento encontrado para ${diaSemana} - ${aula}!`);
+        return null;
     }
+}
 
 export const horarioAulas = [
         {
@@ -85,7 +85,10 @@ export const horarioAulas = [
                 horarioAulas[i][diasSemana[j].replace("-feira", "")] = {
                     disciplina: dadosAula.materia,
                     professor: dadosAula.professor,
-                    sala: `Sala ${dadosAula.sala}`
+                    sala: `Sala ${dadosAula.sala}`,
+                    tipo: dadosAula.tipo,
+                    //não era pra funcionar assim com 'ç' e 'ã' 
+                    duração: dadosAula.duração
                 };
             }
         }
