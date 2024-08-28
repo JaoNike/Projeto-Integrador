@@ -22,46 +22,47 @@ async function obterAula(diaSemana, aula) {
     }
 };
 
+async function carregartabela() {
 
-const scheduleTable = document.getElementById('scheduleTable');
-
-//preenche a tabela
-for (let i = 0; i < 5; i++) {
-    const row = document.createElement('tr');
+    const scheduleTable = document.getElementById('scheduleTable');
     
-    // Adiciona o nome do dia da semana na primeira célula
-    const dayCell = document.createElement('td');
-    dayCell.textContent = diasSemana[i];
-    row.appendChild(dayCell);
-
-    // Adiciona as matérias à linha
-    for (let j = 0; j < 5; j++) {
-        const cell = document.createElement('td');
+    //preenche a tabela
+    for (let i = 0; i < 5; i++) {
+        const row = document.createElement('tr');
         
-        const dadosAula = await obterAula(diasSemana[i], aulas[j]);
-        if (dadosAula) {
+        // Adiciona o nome do dia da semana na primeira célula
+        const dayCell = document.createElement('td');
+        dayCell.textContent = diasSemana[i];
+        row.appendChild(dayCell);
     
-            // Exibe a matéria e adiciona a função de edição ao clique
-            cell.textContent = dadosAula.materia;
-            cell.onclick = () => editSubject(diasSemana[i], aulas[j]);
-
-        } else {
-            // Adiciona uma célula vazia se não houver matéria
-            cell.textContent = '';
+        // Adiciona as matérias à linha
+        for (let j = 0; j < 5; j++) {
+            const cell = document.createElement('td');
+            
+            const dadosAula = await obterAula(diasSemana[i], aulas[j]);
+            if (dadosAula) {
+        
+                // Exibe a matéria e adiciona a função de edição ao clique
+                cell.textContent = dadosAula.materia;
+                cell.onclick = () => editSubject(diasSemana[i], aulas[j],dadosAula);
+    
+            } else {
+                // Adiciona uma célula vazia se não houver matéria
+                cell.textContent = '';
+            }
+            row.appendChild(cell);
         }
-        row.appendChild(cell);
-    }
-
-    // Adiciona a linha à tabela
-    scheduleTable.appendChild(row);
-}
-
-
-window.editSubject = function (dia, aula) {
-    const database = obterAula(dia, aula);
-
     
+        // Adiciona a linha à tabela
+        scheduleTable.appendChild(row);
+    }
+};
+carregartabela();
 
+
+window.editSubject = function (dia, aula,dadosAula) {
+
+    console.log(dadosAula);
       
     console.log('Editando aula:', aula, 'do dia:', dia);
     const modal = document.getElementById('editModal');
@@ -73,13 +74,14 @@ window.editSubject = function (dia, aula) {
     const editMinutes = document.getElementById('edit-minutes');
     const editType = document.getElementById('edit-type');
 
-    const subject = database;
+    const subject = dadosAula;
+    
 
     if (!subject) return;
 
     editDay.value = dia;
     editSubject.innerHTML = '';
-    const subjects = ['Matemática', 'Português', 'História', 'Geografia', 'Artes', 'Ciências', 'Educação Física'];
+    const subjects = ['MATEMÁTICA', 'PORTUGUÊS', 'HISTÓRIA', 'GEOGRAFIA', 'ARTES', 'QUÍMICA', 'TECNOLOGIA', 'PROJETO DE VIDA', 'SOCIOLOGIA','FILOSOFIA', 'FRANCÊS','INGLÊS','BIOLOGIA','FÍSICA'];
     subjects.forEach(sub => {
         const option = document.createElement('option');
         option.value = sub;
@@ -90,17 +92,17 @@ window.editSubject = function (dia, aula) {
         editSubject.appendChild(option);
     });
     editProfessor.value = subject.professor;
-    editRoom.value = subject.room;
-    const duration = subject.duration;
+    editRoom.value = subject.sala;
+    const duration = subject.duracao;
     editHours.value = Math.floor(duration / 60);
     editMinutes.value = duration % 60;
-    editType.value = subject.type;
+    editType.value = subject.tipo;
 
     modal.style.display = 'flex';
 
     window. saveEdit = function() {
         const dia = document.getElementById('edit-day').value;
-        const materia = document.getElementById('edit-materia').value;
+        const materia = document.getElementById('edit-subject').value;
         const professor = document.getElementById('edit-professor').value;
         const sala = document.getElementById('edit-room').value;
         const hours = parseInt(document.getElementById('edit-hours').value);
@@ -120,27 +122,34 @@ window.editSubject = function (dia, aula) {
             
         }
         async function atualizarDocumento() {
+            const docRef = doc(db, dia, aula);
             try {
-              await updateDoc(database, {
+              await updateDoc(docRef, {
                 materia: aulaclicada.materia,
-                professor:
-                sala:
-                tipa:
-                "duração":
+                professor: aulaclicada.professor,
+                sala: aulaclicada.sala,
+                tipo: aulaclicada.tipo,
+                "duração": aulaclicada.duracao
               });
               console.log('Documento atualizado com sucesso!');
             } catch (e) {
               console.error('Erro ao atualizar o documento: ', e);
             }
-          }
-        console.log("AAAAAAAAAAAAAAAAAAAA:   ",aulaclicada)
+        }
+        atualizarDocumento();
 
         closeEditModal();
     
-        showSavingAnimation();
+        showSavingAnimation();   
+        
+        
     };
+    
 };
 
+function recarregar(){
+    location.reload();
+}
 
 window.closeEditModal = function() {
     const modal = document.getElementById('editModal');
@@ -156,9 +165,32 @@ window.showSavingAnimation = function() {
     }, 2000);
 };
 
-window.sendMessage = function() {
+window.sendMessage = async function() {
+    const docRef = doc(db,"Emails", "Matutino" );
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {     
+        
+       const emails = docSnap.data();
+       console.log(emails);
+    } else {
+        console.log("deu erro");
+        
+    }
+
     const message = document.getElementById('automaticMessage').value;
-    alert(`Mensagem enviada: ${message}`);
+    const email = document.getElementById('email').value;
+    const emailStatus = document.getElementById('emailStatus');
+
+    emailjs.send("service_pIntegrador", "template_c8t6245", {
+        to_email: email,
+        message: message,
+    }).then(response => {
+        emailStatus.textContent = "E-mail enviado com sucesso!";
+    }, error => {
+        emailStatus.textContent = "Erro ao enviar o e-mail.";
+    });
+    alert("Mensagem enviada ");
 };
 
 window.sendEmail = function () {
