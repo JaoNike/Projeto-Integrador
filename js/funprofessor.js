@@ -13,7 +13,7 @@ async function obterAula(diaSemana, aula) {
     const docSnap = await getDoc(docRef);
     
     if (docSnap.exists()) {     
-        console.log(docSnap.data());
+        
         return docSnap.data();
         
     } else {
@@ -56,8 +56,13 @@ for (let i = 0; i < 5; i++) {
     scheduleTable.appendChild(row);
 }
 
+
 window.editSubject = function (dia, aula) {
     const database = obterAula(dia, aula);
+
+    
+
+      
     console.log('Editando aula:', aula, 'do dia:', dia);
     const modal = document.getElementById('editModal');
     const editDay = document.getElementById('edit-day');
@@ -95,7 +100,7 @@ window.editSubject = function (dia, aula) {
 
     window. saveEdit = function() {
         const dia = document.getElementById('edit-day').value;
-        const subjectName = document.getElementById('edit-subject').value;
+        const materia = document.getElementById('edit-materia').value;
         const professor = document.getElementById('edit-professor').value;
         const sala = document.getElementById('edit-room').value;
         const hours = parseInt(document.getElementById('edit-hours').value);
@@ -103,28 +108,35 @@ window.editSubject = function (dia, aula) {
         const tipo = document.getElementById('edit-type').value;
         const duracao = (hours * 60) + minutes;
     
-        const materia = database
-        if (materia) {
-            materia.professor = professor;
-            materia.sala = sala;
-            materia.duracao = duracao;
-            materia.tipo = tipo;
+        const aulaclicada = {};
+        
+        if (aulaclicada) {
+            aulaclicada.materia = materia;
+            aulaclicada.professor = professor;
+            aulaclicada.sala = sala;
+            aulaclicada.duracao = duracao;
+            aulaclicada.tipo = tipo;
         } else {
-            // Caso o horário não exista, adicione-o.
-            if (!scheduleData[dia]) {
-                scheduleData[dia] = [];
-            }
-            scheduleData[dia].push({
-                subject: subjectName,
-                professor: professor,
-                room: room,
-                duration: duration,
-                type: type
-            });
+            
         }
-    
+        async function atualizarDocumento() {
+            try {
+              await updateDoc(database, {
+                materia: aulaclicada.materia,
+                professor:
+                sala:
+                tipa:
+                "duração":
+              });
+              console.log('Documento atualizado com sucesso!');
+            } catch (e) {
+              console.error('Erro ao atualizar o documento: ', e);
+            }
+          }
+        console.log("AAAAAAAAAAAAAAAAAAAA:   ",aulaclicada)
+
         closeEditModal();
-        loadSchedule();
+    
         showSavingAnimation();
     };
 };
