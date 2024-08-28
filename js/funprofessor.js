@@ -201,7 +201,7 @@ window.sendEmail = function () {
 
     emailjs.send("service_pIntegrador", "template_c8t6245", {
         to_email: email,
-        message: "Link do site: https://projetoddsintegrador.github.io/IntegradorHorario/"
+        message: "Link do site: https://jaonike.github.io/Projeto-Integrador/"
     }).then(response => {
         emailStatus.textContent = "E-mail enviado com sucesso!";
     }, error => {
