@@ -42,7 +42,7 @@ main {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    
 }
 
 table {
@@ -103,31 +103,18 @@ footer {
     background-color: #a3cde7; /* Azul pastel */
     cursor: pointer;
 }
-
-.legenda {
-    margin-top: 2rem; /* Adiciona espaço acima das legendas */
-    font-size: 14px;
-    color: #555;
+.legend {
+    list-style-type: none;
+    padding: 0;
 }
-
-.legenda div {
-    display: inline-block;
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.legend-color {
+    width: 20px;
+    height: 20px;
     margin-right: 10px;
-    padding: 5px 10px;
-    border-radius: 3px;
-}
-
-.legenda .legenda-especial {
-    background-color: #b3e5cc; /* Verde pastel */
-    color: #333;
-}
-
-.legenda .legenda-prova {
-    background-color: #ffb3b3; /* Vermelho pastel */
-    color: #333;
-}
-
-.legenda .legenda-normal {
-    background-color: #a3cde7; /* Azul pastel */
-    color: #333;
+    border: 1px solid #ddd;
 }
