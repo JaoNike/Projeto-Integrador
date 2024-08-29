@@ -168,24 +168,28 @@ window.showSavingAnimation = function() {
 window.sendMessage = async function() {
     const docRef = doc(db,"Emails", "Matutino" );
     const docSnap = await getDoc(docRef);
-    
+    let emails;
     if (docSnap.exists()) {     
         
-       const emails = docSnap.data();
+       emails = docSnap.data();
        console.log(emails);
     } else {
         console.log("deu erro");
         
     }
 
-    const message = document.getElementById('automaticMessage').value;
+    const message = document.getElementById('automaticMessage').value 
+    if(message === "") {
+        message = "Link do site: https://jaonike.github.io/Projeto-Integrador/"
+    }
     const email = document.getElementById('email').value;
     const emailStatus = document.getElementById('emailStatus');
     
-    for (let i = 0; i < 5; i++) {
+    for (var E in emails) {
+        console.log(emails[E]);
         emailjs.send("service_pIntegrador", "template_c8t6245", {
-            to_email: email[i],
-            message: "Link do site: https://jaonike.github.io/Projeto-Integrador/",
+            to_email: emails[E],
+            message: message,
         }).then(response => {
             emailStatus.textContent = "E-mail enviado com sucesso!";
         }, error => {
