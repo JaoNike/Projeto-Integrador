@@ -1,5 +1,5 @@
 const {getFirestore, getDoc, getdocs, doc, updateDoc, deleteDoc} = await import('https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js');
-import { db } from "../acessarDB.js";
+import { db } from "./acessarDB.js";
 
 (function(){
     emailjs.init("GvWlpEaWfv7cA4QUn");
@@ -58,7 +58,6 @@ async function carregartabela() {
     }
 };
 carregartabela();
-
 
 window.editSubject = function (dia, aula,dadosAula) {
 
@@ -146,10 +145,6 @@ window.editSubject = function (dia, aula,dadosAula) {
     };
     
 };
-
-function recarregar(){
-    location.reload();
-}
 
 window.closeEditModal = function() {
     const modal = document.getElementById('editModal');
