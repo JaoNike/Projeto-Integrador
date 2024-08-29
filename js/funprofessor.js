@@ -178,10 +178,13 @@ window.sendMessage = async function() {
         
     }
 
-    const message = document.getElementById('automaticMessage').value 
+    let message = document.getElementById('automaticMessage').value 
     if(message === "") {
         message = "Link do site: https://jaonike.github.io/Projeto-Integrador/"
+    } else{
+        message += " Link do site: https://jaonike.github.io/Projeto-Integrador/"
     }
+    console.log(message);
     const email = document.getElementById('email').value;
     const emailStatus = document.getElementById('emailStatus');
     
