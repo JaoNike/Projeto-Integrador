@@ -1,4 +1,4 @@
-const {getFirestore, getDoc, getdocs, doc, updateDoc, deleteDoc} = await import('https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js');
+const {getFirestore, getDoc, getdocs, doc, updateDoc, arrayUnion} = await import('https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js');
 import { db } from "./acessarDB.js";
 
 (function(){
@@ -161,46 +161,79 @@ window.showSavingAnimation = function() {
 };
 
 window.sendMessage = async function() {
-    const docRef = doc(db,"Emails", "Matutino" );
+    const docRef = doc(db, "Emails", "Matutino");
     const docSnap = await getDoc(docRef);
     let emails;
-    if (docSnap.exists()) {     
+
+    if (docSnap.exists()) {
+        const data = docSnap.data();
+        emails = data.emails; // Supondo que o campo emails é um array dentro do documento
         
-       emails = docSnap.data();
-       console.log(emails);
+        if (!emails || emails.length === 0) {
+            console.log("Nenhum email encontrado no documento.");
+            return; // Se não houver emails, interrompe a função
+        }
     } else {
-        console.log("deu erro");
-        
+        console.log("Erro: Documento não encontrado.");
+        return; // Se o documento não existir, interrompe a função
     }
 
-    let message = document.getElementById('automaticMessage').value 
-    if(message === "") {
-        message = "Link do site: https://jaonike.github.io/Projeto-Integrador/"
-    } else{
-        message += " Link do site: https://jaonike.github.io/Projeto-Integrador/"
+    // Lógica para criar a mensagem
+    let message = document.getElementById('automaticMessage').value;
+    if (message === "") {
+        message = "Link do site: https://jaonike.github.io/Projeto-Integrador/";
+    } else {
+        message += " Link do site: https://jaonike.github.io/Projeto-Integrador/";
     }
-    console.log(message);
-    const email = document.getElementById('email').value;
+    
     const emailStatus = document.getElementById('emailStatus');
     
-    for (var E in emails) {
-        console.log(emails[E]);
-        emailjs.send("service_pIntegrador", "template_c8t6245", {
-            to_email: emails[E],
-            message: message,
-        }).then(response => {
-            emailStatus.textContent = "E-mail enviado com sucesso!";
-        }, error => {
-            emailStatus.textContent = "Erro ao enviar o e-mail.";
-        });
-        console.log("Mensagem enviada ");
+    // Envia o email para cada endereço no array de emails
+    for (let E of emails) {
+        
+
+        if(E === ""){
+
+            console.log("Email vazio");
+
+        } else{
+            console.log("Enviando email para:", E);
+            
+            emailjs.send("service_pIntegrador", "template_c8t6245", {
+                to_email: E,
+                message: message,
+            }).then(response => {
+                emailStatus.textContent = "E-mail enviado com sucesso!";
+            }, error => {
+                emailStatus.textContent = "Erro ao enviar o e-mail.";
+                console.error("Erro ao enviar o e-mail:", error);
+            });
+        }
+
     }
+
+    console.log("Mensagens enviadas.");
 };
 
+async function addEmail(emailnovo) {
+    try {
+      // Referência ao documento "Matutino" dentro da coleção "Emails"
+      const docRef = doc(db, "Emails", "Matutino");
+  
+      // Adicionar o novo email usando arrayUnion para não sobrescrever o array existente
+      await updateDoc(docRef, {
+        emails: arrayUnion(emailnovo)
+      });
+  
+      console.log("Email adicionado com sucesso");
+    } catch (e) {
+      console.error("Erro ao adicionar o email: ", e);
+    }
+}
 window.sendEmail = function () {
     const email = document.getElementById('email').value;
     const emailStatus = document.getElementById('emailStatus');
-
+    addEmail(email);  
     emailjs.send("service_pIntegrador", "template_c8t6245", {
         to_email: email,
         message: "Link do site: https://jaonike.github.io/Projeto-Integrador/"
