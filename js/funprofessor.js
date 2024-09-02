@@ -2,7 +2,7 @@ const {getFirestore, getDoc, getdocs, doc, updateDoc, arrayUnion} = await import
 import { db } from "./acessarDB.js";
 
 (function(){
-    emailjs.init("GvWlpEaWfv7cA4QUn");
+    emailjs.init("15D62CWo0w5pPKA2g");
 })();
 
 const diasSemana = ['segunda-feira', 'terca-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira'];
@@ -57,6 +57,7 @@ async function carregartabela() {
         scheduleTable.appendChild(row);
     }
 };
+
 carregartabela();
 
 window.editSubject = function (dia, aula,dadosAula) {
@@ -190,18 +191,14 @@ window.sendMessage = async function() {
     
     // Envia o email para cada endereço no array de emails
     for (let E of emails) {
-        
-
         if(E === ""){
-
             console.log("Email vazio");
-
         } else{
             console.log("Enviando email para:", E);
             
-            emailjs.send("service_pIntegrador", "template_c8t6245", {
+            emailjs.send("service_crono","template_thlnpd7",{
                 to_email: E,
-                message: message,
+                message: message
             }).then(response => {
                 emailStatus.textContent = "E-mail enviado com sucesso!";
             }, error => {
@@ -230,18 +227,25 @@ async function addEmail(emailnovo) {
       console.error("Erro ao adicionar o email: ", e);
     }
 }
+
 window.sendEmail = function () {
     const email = document.getElementById('email').value;
     const emailStatus = document.getElementById('emailStatus');
-    addEmail(email);  
-    emailjs.send("service_pIntegrador", "template_c8t6245", {
-        to_email: email,
-        message: "Link do site: https://jaonike.github.io/Projeto-Integrador/"
-    }).then(response => {
-        emailStatus.textContent = "E-mail enviado com sucesso!";
-    }, error => {
-        emailStatus.textContent = "Erro ao enviar o e-mail.";
-    });
+    if (email === ""){
+        emailStatus.textContent = "O E-mail não pode estar vazio!.";
+        
+    }else{
+        addEmail(email);  
+        emailjs.send("service_crono","template_thlnpd7", {
+            to_email: email,
+            message: "Link do site: https://jaonike.github.io/Projeto-Integrador/"
+        }).then(response => {
+            emailStatus.textContent = "E-mail enviado com sucesso!";
+        }, error => {
+            emailStatus.textContent = "Erro ao enviar o e-mail.";
+        });
+    }
+    
 };
 
 window.goBack = function () {
