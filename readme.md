@@ -1,105 +1,114 @@
-# 📚 Projeto Integrador
+# 🏋️‍♂️ FitTude Web
 
-Este repositório contém o **Projeto Integrador**, desenvolvido como Trabalho de Conclusão de Curso (TCC).  
-🎯 **Objetivo:** Oferecer uma solução inovadora para aviso e envio do cronograma de aulas, mantendo os alunos sempre informados!
+<div align="center">
 
----
+![FitTude Logo](web/static/assets/img/favicon2.png)
 
-![GitHub repo size](https://img.shields.io/github/repo-size/jaonike/projeto-integrador?style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/jaonike/projeto-integrador?style=flat-square)
-![GitHub license](https://img.shields.io/github/license/jaonike/projeto-integrador?style=flat-square)
+[![Status](https://img.shields.io/badge/status-em%20desenvolvimento-green.svg)](https://github.com/lcsouza2/fittude)
+[![License](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE)
 
----
+*Sua jornada fitness começa aqui*
 
-## ✨ Funcionalidades
+</div>
 
-- ✅ Login de usuário  
-- ✅ Gerenciamento de aulas  
-- ✅ Envio de notificações para os alunos  
+## 🎯 Sobre o Projeto
 
----
+FitTude é uma plataforma web moderna para gerenciamento e acompanhamento de treinos, desenvolvida para proporcionar uma experiência intuitiva e eficiente aos usuários.
 
-## 🚀 Tecnologias Utilizadas
+## ⚡ Funcionalidades Principais
 
-**Frontend:**
-- [HTML5](https://developer.mozilla.org/pt-BR/docs/Web/HTML)
-- [CSS3](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
-- [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
-- [Bootstrap](https://getbootstrap.com/)
+- 🔐 Sistema de autenticação seguro
+- 📊 Dashboard personalizado
+- 💪 Acompanhamento de treinos
+- 📈 Monitoramento de progresso
+- 📚 Biblioteca de exercícios
+- 📱 Design totalmente responsivo
 
-**Backend e Banco de Dados:**
-- [Firebase](https://firebase.google.com/)
+## 🛠️ Tecnologias
 
-**Ferramentas e Versionamento:**
-- [Git](https://git-scm.com/)
-- [GitHub](https://github.com/)
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [canva](https://www.canva.com/)
----
+- ![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)
+- ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
+- ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
+- ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)
 
-## 📂 Estrutura do Projeto
+## 🚀 Começando
 
-```plaintext
-projeto-integrador/
-├── web/         # Código-fonte principal
-├── web/style/   # Recursos estáticos (imagens, ícones)
-├── web/index.html # Página inicial
-├── web/js/      # Scripts JavaScript
-└── readme/      # Documentação do projeto
-
-```
-
----
-
-## ⚙️ Como Executar
-
-1. Clone o repositório:
+1. Clone o repositório
 ```bash
-git clone https://github.com/seu-usuario/projeto-integrador.git
+git clone https://github.com/lcsouza2/fittude.git
 ```
 
-2. Navegue até o diretório do projeto:
+2. Entre na branch web
 ```bash
-cd projeto-integrador
+git checkout web
 ```
 
-3. Abra o arquivo `index.html` no seu navegador favorito.
-
----
-
-## 🤝 Contribuição
-
-Contribuições são super bem-vindas! 💙  
-Siga os passos abaixo para colaborar com o projeto:
-
-1. Faça um fork do repositório.
-2. Crie uma branch para sua feature:
+3. Instale as dependências
 ```bash
-git checkout -b minha-feature
+npm install
 ```
-3. Faça commit das suas alterações:
+
+4. Inicie o servidor de desenvolvimento
 ```bash
-git commit -m "feat: adiciona minha feature"
+npm run dev
 ```
-4. Envie para a branch:
-```bash
-git push origin minha-feature
-```
-5. Abra um Pull Request.
 
----
+## 📱 Screenshots
 
-## 📄 Licença
+<div align="center">
+<table>
+<tr>
+<td>Login</td>
+<td>Dashboard</td>
+<td>Treinos</td>
+</tr>
+<tr>
+<td>
 
-Este projeto está sob a licença [MIT](LICENSE). 📝
+![Login](screenshots/login.png)
 
----
+</td>
+<td>
+
+![Dashboard](screenshots/dashboard.png)
+
+</td>
+<td>
+
+![Treinos](screenshots/treinos.png)
+
+</td>
+</tr>
+</table>
+</div>
+
+## 🤝 Contribuindo
+
+1. Faça um fork do projeto
+2. Crie sua branch de feature (`git checkout -b feature/NovaFuncionalidade`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
+4. Push para a branch (`git push origin feature/NovaFuncionalidade`)
+5. Abra um Pull Request
+
+## 📝 Desenvolvimento
+
+- Siga os padrões de código em `CONTRIBUTING.md`
+- Crie branches de feature a partir da `web`
+- Mantenha a documentação atualizada
+- Teste suas alterações antes de submeter
 
 ## 📫 Contato
 
-📧 Email: [jaogabrie00@gmail.com](mailto:jaogabrie00@gmail.com)  
-🔗 LinkedIn: [joão gabriel](https://www.linkedin.com/in/joão-gabriel-31038a2ba/)
+Para questões e sugestões, por favor abra uma [issue](https://github.com/lcsouza2/fittude/issues).
+
+## 📜 Licença
+
+Este projeto está sob a licença ISC. Veja o arquivo LICENSE para mais detalhes.
 
 ---
 
-> Desenvolvido com 💙 para manter todos informados!
+<div align="center">
+
+Feito com ❤️ pela equipe FitTude
+
+</div>
