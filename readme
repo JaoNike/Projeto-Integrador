@@ -1,0 +1,60 @@
+# Projeto Integrador
+
+Este repositório contém o projeto **Projeto Integrador**, desenvolvido como Trabalho de Conclusão de Curso (TCC). O objetivo do projeto é oferecer uma solução inovadora para aviso e envio do cronograma de aulas para as turmas a fim de manter o aluno informado.
+
+## Funcionalidades
+
+- [Funcionalidade 1: ex.: login de usuario]
+- [Funcionalidade 2: ex.: Gerenciamento de aulas]
+- [Funcionalidade 3: ex.: envio de avisos]
+
+## Tecnologias Utilizadas
+
+- **Linguagem de Programação**: [ex.: html,javascript e css]
+- **Frameworks**: [ex.: Boostrap]
+- **Banco de Dados**: [ex.: Cloudfire]
+- **Outras Ferramentas**: [ex.: Senai]
+
+## Como Executar o Projeto
+
+1. Clone o repositório:
+    ```bash
+    git clone https://github.com/seu-usuario/projeto-integrador.git
+    ```
+2. Navegue até o diretório do projeto:
+    ```bash
+    cd projeto-integrador
+    ```
+
+## Estrutura do Projeto
+
+- `/web`: Código-fonte principal.
+- `/readme`: Documentação do projeto.
+- `/styele`: Recursos estáticos como imagens e ícones.
+
+## Contribuição
+
+Contribuições são bem-vindas! Siga os passos abaixo para contribuir:
+
+1. Faça um fork do repositório.
+2. Crie uma branch para sua feature:
+    ```bash
+    git checkout -b minha-feature
+    ```
+3. Faça commit das suas alterações:
+    ```bash
+    git commit -m "Adiciona minha feature"
+    ```
+4. Envie para o repositório remoto:
+    ```bash
+    git push origin minha-feature
+    ```
+5. Abra um Pull Request.
+
+## Licença
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
+
+## Contato
+
+Para mais informações, entre em contato pelo e-mail: [seu-email@exemplo.com].

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horários Escolares</title>
+    <link rel="stylesheet" href="styles/styprofessor.css">
+</head>
+<body>
+    <header>
+        <h1>Horários Escolares</h1>
+        <button class="btn-logoff" onclick="goBack()">Voltar</button>
+    </header>
+
+    <div class="container main-container">
+        <h2>Horário da Semana</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Matéria 1</th>
+                    <th>Matéria 2</th>
+                    <th>Matéria 3</th>
+                    <th>Matéria 4</th>
+                    <th>Matéria 5</th>
+                </tr>
+            </thead>
+            <tbody id="scheduleTable">
+                
+            </tbody>
+        </table>
+
+        <div class="message-box">
+            <h3>Emails Automáticos</h3>
+            <textarea id="automaticMessage" rows="4" style="width: 100%;" placeholder="Digite sua mensagem automática aqui..."></textarea>
+            <button class="btn-message" onclick="sendMessage()">Enviar emails</button>
+        </div>
+
+        <div class="email-box">
+            <h3>Enviar Link do Site para Alunos</h3>
+            <form id="emailForm">
+                <label for="email">E-mail do aluno:</label>
+                <input type="email" id="email" name="email" required>
+                <button type="button" class="btn-email" onclick="sendEmail()">Enviar E-mail</button>
+            </form>
+            <p id="emailStatus"></p>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <h3>Editar Matéria</h3>
+            <form id="editForm">
+                <label for="edit-day">Dia:</label>
+                <input type="text" id="edit-day" class="edit-input" disabled>
+                <label for="edit-subject">Matéria:</label>
+                <select id="edit-subject" class="edit-input">
+                    <!-- Opções de matérias serão adicionadas dinamicamente -->
+                </select>
+                <label for="edit-professor">Professor:</label>
+                <input type="text" id="edit-professor" class="edit-input">
+                <label for="edit-room">Número da Sala:</label>
+                <input type="text" id="edit-room" class="edit-input">
+                <label for="edit-hours">Duração (horas):</label>
+                <input type="number" id="edit-hours" class="edit-input" min="0">
+                <label for="edit-minutes">Duração (minutos):</label>
+                <input type="number" id="edit-minutes" class="edit-input" min="0" max="59">
+                <label for="edit-type">Tipo da Aula:</label>
+                <select id="edit-type" class="edit-input">
+                    <option>Aulas Normais</option>
+                    <option>Prova</option>
+                    <option>Atividades Especiais</option>
+                </select>
+                <button type="button" class="btn-save" onclick="saveEdit()">Salvar</button>
+                <button type="button" class="btn" onclick="closeEditModal()">Fechar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Animação de Salvamento -->
+    <div class="saving-animation" id="savingAnimation">
+        <i>&#10003;</i>
+        <p>Alteração salva com sucesso!</p>
+    </div>
+
+    <!-- EmailJS SDK -->
+    <script type="text/JavaScript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="module" src="js/acessarDB.js"></script>
+    <script type="module" src="js/funprofessor.js"></script>
+</body>
+</html>
