@@ -4,16 +4,17 @@ Este repositório contém o projeto **Projeto Integrador**, desenvolvido como Tr
 
 ## Funcionalidades
 
-- [Funcionalidade 1: ex.: login de usuario]
-- [Funcionalidade 2: ex.: Gerenciamento de aulas]
-- [Funcionalidade 3: ex.: envio de avisos]
+- Funcionalidade 1: ex.: login de usuario
+- Funcionalidade 2: ex.: Gerenciamento de aulas
+- funcionalidade 3: ex.: Envio de notificações para os alunos
 
 ## Tecnologias Utilizadas
 
-- **Linguagem de Programação**: [ex.: html,javascript e css]
-- **Frameworks**: [ex.: Boostrap]
-- **Banco de Dados**: [ex.: Cloudfire]
-- **Outras Ferramentas**: [ex.: Senai]
+- **Linguagem de Programação**: JavaScript, HTML, CSS.
+- **Frameworks**: Bootstrap.
+- **Banco de Dados**: Firebase
+- **Controle de Versão**: Git e Github
+- **Outras Ferramentas**: Senai, Google Cloud, Firebase, Github, Canva.
 
 ## Como Executar o Projeto
 
@@ -57,4 +58,4 @@ Este projeto está licenciado sob a [Licença MIT](LICENSE).
 
 ## Contato
 
-Para mais informações, entre em contato pelo e-mail: [seu-email@exemplo.com].
+Para mais informações, entre em contato pelo e-mail: [jaogabrie00@gmail.com].
