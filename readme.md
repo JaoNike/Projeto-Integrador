@@ -5,9 +5,9 @@ Este repositório contém o **Projeto Integrador**, desenvolvido como Trabalho d
 
 ---
 
-![GitHub repo size](https://img.shields.io/github/repo-size/seu-usuario/projeto-integrador?style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/seu-usuario/projeto-integrador?style=flat-square)
-![GitHub license](https://img.shields.io/github/license/seu-usuario/projeto-integrador?style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/jaonike/projeto-integrador?style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/jaonike/projeto-integrador?style=flat-square)
+![GitHub license](https://img.shields.io/github/license/jaonike/projeto-integrador?style=flat-square)
 
 ---
 
@@ -33,9 +33,8 @@ Este repositório contém o **Projeto Integrador**, desenvolvido como Trabalho d
 **Ferramentas e Versionamento:**
 - [Git](https://git-scm.com/)
 - [GitHub](https://github.com/)
-- Google Cloud
-- Canva
-
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [canva](https://www.canva.com/)
 ---
 
 ## 📂 Estrutura do Projeto
@@ -43,9 +42,11 @@ Este repositório contém o **Projeto Integrador**, desenvolvido como Trabalho d
 ```plaintext
 projeto-integrador/
 ├── web/         # Código-fonte principal
-├── readme/      # Documentação do projeto
-├── style/       # Recursos estáticos (imagens, ícones)
-└── LICENSE
+├── web/style/   # Recursos estáticos (imagens, ícones)
+├── web/index.html # Página inicial
+├── web/js/      # Scripts JavaScript
+└── readme/      # Documentação do projeto
+
 ```
 
 ---
@@ -97,7 +98,7 @@ Este projeto está sob a licença [MIT](LICENSE). 📝
 ## 📫 Contato
 
 📧 Email: [jaogabrie00@gmail.com](mailto:jaogabrie00@gmail.com)  
-🔗 LinkedIn: *[adicione aqui se quiser]*
+🔗 LinkedIn: [joão gabriel](https://www.linkedin.com/in/joão-gabriel-31038a2ba/)
 
 ---
 
