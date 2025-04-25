@@ -1,6 +1,6 @@
 const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js');
 const { getAnalytics } = await import('https://www.gstatic.com/firebasejs/10.13.0/firebase-analytics.js');
-const {getFirestore, getDoc, getdocs, doc, updateDoc, deleteDoc} = await import('https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js');
+const {getFirestore, getDoc, getdocs, doc, updateDoc, deleteDoc,arrayUnion} = await import('https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js');
 
 // Configura o Firebase
 const firebaseConfig = {
@@ -15,8 +15,14 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-export const db = getFirestore(app);
-
+const db = getFirestore(app);
+export { 
+    db,
+    doc,
+    getDoc,
+    updateDoc,
+    arrayUnion
+};
 // Função para buscar dados de uma aula específica de um dia da semana
 async function obterAula(diaSemana, aula) {
     const docRef = doc(db, diaSemana, aula);

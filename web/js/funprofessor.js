@@ -1,31 +1,7 @@
-const {getFirestore, getDoc, getdocs, doc, updateDoc, arrayUnion} = await import('https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js');
-import { db } from "./acessarDB.js";
-
-(function(){
-    emailjs.init("15D62CWo0w5pPKA2g");
-})();
-
-const diasSemana = ['segunda-feira', 'terca-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira'];
-const aulas = ["aula 1", "aula 2", "aula 3", "aula 4", "aula 5"];
-
-async function obterAula(diaSemana, aula) {
-    const docRef = doc(db, diaSemana, aula);
-    const docSnap = await getDoc(docRef);
-    
-    if (docSnap.exists()) {     
-        
-        return docSnap.data();
-        
-    } else {
-        console.log(`Nenhum documento encontrado para ${diaSemana} - ${aula}!`);
-        return null;
-    }
-};
+import { db, doc, getDoc, updateDoc, arrayUnion } from "./acessarDB.js";
 
 async function carregartabela() {
-
     const scheduleTable = document.getElementById('scheduleTable');
-    
     //preenche a tabela
     for (let i = 0; i < 5; i++) {
         const row = document.createElement('tr');
@@ -58,8 +34,6 @@ async function carregartabela() {
     }
 };
 
-carregartabela();
-
 window.editSubject = function (dia, aula,dadosAula) {
 
     console.log(dadosAula);
@@ -75,7 +49,6 @@ window.editSubject = function (dia, aula,dadosAula) {
     const editType = document.getElementById('edit-type');
 
     const subject = dadosAula;
-    
 
     if (!subject) return;
 
@@ -141,10 +114,7 @@ window.editSubject = function (dia, aula,dadosAula) {
         closeEditModal();
     
         showSavingAnimation();   
-        
-        
     };
-    
 };
 
 window.closeEditModal = function() {
@@ -199,7 +169,7 @@ window.sendMessage = async function() {
             emailjs.send("service_crono","template_thlnpd7",{
                 to_email: E,
                 message: message
-            }).then(response => {
+            }).then(() => {
                 emailStatus.textContent = "E-mail enviado com sucesso!";
             }, error => {
                 emailStatus.textContent = "Erro ao enviar o e-mail.";
@@ -239,15 +209,34 @@ window.sendEmail = function () {
         emailjs.send("service_crono","template_thlnpd7", {
             to_email: email,
             message: "Link do site: https://jaonike.github.io/Projeto-Integrador/"
-        }).then(response => {
+        }).then(() => {
             emailStatus.textContent = "E-mail enviado com sucesso!";
-        }, error => {
+        }, () => {
             emailStatus.textContent = "Erro ao enviar o e-mail.";
         });
     }
     
 };
 
-window.goBack = function () {
-    window.history.back();
+(function(){
+    emailjs.init("15D62CWo0w5pPKA2g");
+})();
+
+const diasSemana = ['segunda-feira', 'terca-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira'];
+const aulas = ["aula 1", "aula 2", "aula 3", "aula 4", "aula 5"];
+
+async function obterAula(diaSemana, aula) {
+    const docRef = doc(db, diaSemana, aula);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {     
+        
+        return docSnap.data();
+        
+    } else {
+        console.log(`Nenhum documento encontrado para ${diaSemana} - ${aula}!`);
+        return null;
+    }
 };
+
+carregartabela();

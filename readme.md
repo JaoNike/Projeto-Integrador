@@ -15,7 +15,9 @@ Este repositório contém o **Projeto Integrador**, desenvolvido como Trabalho d
 
 - ✅ Login de usuário  
 - ✅ Gerenciamento de aulas  
-- ✅ Envio de notificações para os alunos  
+- ✅ Envio de notificações para os alunos
+- ✅ Cronograma de aulas
+- ✅ Design responsivo para dispositivos móveis
 
 ---
 
