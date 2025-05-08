@@ -208,7 +208,7 @@ window.sendEmail = function () {
         addEmail(email);  
         emailjs.send("service_crono","template_thlnpd7", {
             to_email: email,
-            message: "Link do site: https://jaonike.github.io/Projeto-Integrador/"
+            message: "Link do site: https://jaonike.github.io/Projeto-Integrador/web/page/homepage.html"
         }).then(() => {
             emailStatus.textContent = "E-mail enviado com sucesso!";
         }, () => {
