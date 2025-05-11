@@ -14,37 +14,37 @@
         <h1>Horários Escolares</h1>
         <button id="btn-logoff" class="btn-logoff" onclick="goBack()">Voltar</button>
     </header>
-
     <div class="container main-container">
         <h2>Horário da Semana</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Dia</th>
-                    <th>Matéria 1</th>
-                    <th>Matéria 2</th>
-                    <th>Matéria 3</th>
-                    <th>Matéria 4</th>
-                    <th>Matéria 5</th>
-                </tr>
-            </thead>
-            <tbody id="scheduleTable">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Dia</th>
+                        <th scope="col">Matéria 1</th>
+                        <th scope="col">Matéria 2</th>
+                        <th scope="col">Matéria 3</th>
+                        <th scope="col">Matéria 4</th>
+                        <th scope="col">Matéria 5</th>
+                    </tr>
+                </thead>
+                <tbody id="scheduleTable">
                 
-            </tbody>
-        </table>
-
+                </tbody>
+            </table>
+        </div>
         <div class="message-box">
-            <h3>Emails Automáticos</h3>
-            <textarea id="automaticMessage" rows="4" style="width: 100%;" placeholder="Digite sua mensagem automática aqui..."></textarea>
-            <button class="btn-message" onclick="sendMessage()">Enviar emails</button>
+            <h3>Envia Email para alunos ja cadastrados</h3>
+            <textarea id="automaticMessage" rows="4" style="width: 100%;" placeholder="Digite o aviso aqui..."></textarea>
+            <button class="btn-message">Enviar emails</button>
         </div>
 
         <div class="email-box">
-            <h3>Enviar Link do Site para Alunos</h3>
+            <b><p>Enviar Link do Site para Alunos e Cadastrar-los </p></b>
             <form id="emailForm">
                 <label for="email">E-mail do aluno:</label>
                 <input type="email" id="email" name="email" required>
-                <button type="button" class="btn-email" onclick="sendEmail()">Enviar E-mail</button>
+                <button type="button" class="btn-email">Enviar E-mail</button>
             </form>
             <p id="emailStatus"></p>
         </div>
@@ -52,31 +52,47 @@
 
     <!-- Edit Modal -->
     <div class="modal" id="editModal">
-        <div class="modal-content">
-            <h3>Editar Matéria</h3>
-            <form id="editForm">
-                <label for="edit-day">Dia:</label>
-                <input type="text" id="edit-day" class="edit-input" disabled>
-                <label for="edit-subject">Matéria:</label>
-                <select id="edit-subject" class="edit-input">
-                    <!-- Opções de matérias serão adicionadas dinamicamente -->
-                </select>
-                <label for="edit-professor">Professor:</label>
-                <input type="text" id="edit-professor" class="edit-input">
-                <label for="edit-room">Número da Sala:</label>
-                <input type="text" id="edit-room" class="edit-input">
-                <label for="edit-hours">Duração (horas):</label>
-                <input type="number" id="edit-hours" class="edit-input" min="0">
-                <label for="edit-minutes">Duração (minutos):</label>
-                <input type="number" id="edit-minutes" class="edit-input" min="0" max="59">
-                <label for="edit-type">Tipo da Aula:</label>
-                <select id="edit-type" class="edit-input">
-                    <option>Aulas Normais</option>
-                    <option>Prova</option>
-                    <option>Atividades Especiais</option>
-                </select>
-                <button type="button" class="btn-save" onclick="saveEdit()">Salvar</button>
-                <button type="button" class="btn" onclick="closeEditModal()">Fechar</button>
+        <div class="modal-content col-11 col-md-8 col-lg-6 mx-auto p-4">
+            <h3 class="mb-4">Editar Matéria</h3>
+            <form id="editForm" class="row g-3">
+                <div class="col-12">
+                    <label for="edit-day" class="form-label">Dia:</label>
+                    <input type="text" id="edit-day" class="form-control" disabled>
+                </div>
+                <div class="col-12">
+                    <label for="edit-subject" class="form-label">Matéria:</label>
+                    <select id="edit-subject" class="form-select">
+                        <!-- Opções de matérias serão adicionadas dinamicamente -->
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label for="edit-professor" class="form-label">Professor:</label>
+                    <input type="text" id="edit-professor" class="form-control">
+                </div>
+                <div class="col-12">
+                    <label for="edit-room" class="form-label">Número da Sala:</label>
+                    <input type="text" id="edit-room" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label for="edit-hours" class="form-label">Duração (horas):</label>
+                    <input type="number" id="edit-hours" class="form-control" min="0">
+                </div>
+                <div class="col-md-6">
+                    <label for="edit-minutes" class="form-label">Duração (minutos):</label>
+                    <input type="number" id="edit-minutes" class="form-control" min="0" max="59">
+                </div>
+                <div class="col-12">
+                    <label for="edit-type" class="form-label">Tipo da Aula:</label>
+                    <select id="edit-type" class="form-select">
+                        <option>Aulas Normais</option>
+                        <option>Prova</option>
+                        <option>Atividades Especiais</option>
+                    </select>
+                </div>
+                <div class="col-12 mt-4">
+                    <button type="button" class="btn btn-primary me-2" onclick="saveEdit()">Salvar</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Fechar</button>
+                </div>
             </form>
         </div>
     </div>

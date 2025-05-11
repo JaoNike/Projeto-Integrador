@@ -1,13 +1,35 @@
+import { horarioAulas } from './acessarDB.js';
+const token = localStorage.getItem('token');
+const user = localStorage.getItem('user');
+const tokendobanco = "TOKEN_ALUNO_456"; // token fictício obtido do banco
+const userdobanco = "aluno"; // outro token fictício obtido do banco
+if (!token || !user) {
+    alert("Você não está logado. Redirecionando para a página de login.");
+    window.location.href = "index.html";
+} else {
+    if (token !== tokendobanco || user !== userdobanco) {
+        alert("Você não tem permissão para acessar esta página.");
+        window.location.href = "index.html";
+    }  // Verifica se o token e o usuário estão corretos
+    else {
+        alert("Bem-vindo, " + user + "!");
+        preencherTabela();
+    }
+}
 
-import {horarioAulas} from "./acessarDB.js"
+const botaoLogoff = document.getElementById('btn-logoff');
+botaoLogoff.addEventListener('click', function () {
+    logoff();
+});
 
-window.preencherTabela = function () {
+function preencherTabela() {
     const tabela = document.getElementById("tabela-horario");
-    
     horarioAulas.forEach(aula => {
+        console.log(aula)
+
         const linha = document.createElement("tr");
-        
         const celulaHorario = document.createElement("td");
+
         celulaHorario.textContent = aula.horario;
         linha.appendChild(celulaHorario);
         
@@ -45,18 +67,14 @@ window.preencherTabela = function () {
     });
 }
 
-preencherTabela();
-
-window.logoff = function() {
+function logoff() {
     // Limpa os campos de login e senha, se existirem no localStorage
-    if (localStorage.getItem('login')) {
-        localStorage.removeItem('login');
+    if (localStorage.getItem('token')) {
+        localStorage.removeItem('token');
     }
-    if (localStorage.getItem('senha')) {
-        localStorage.removeItem('senha');
+    if (localStorage.getItem('user')) {
+        localStorage.removeItem('user');
     }
-
     // Redireciona para a página de login
-    window.location.href = "index.html"; // Substitua pelo caminho correto para a página de login
-
-}
+    window.location.href = "index.html";
+}  

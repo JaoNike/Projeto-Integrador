@@ -1,5 +1,22 @@
 import { db, doc, getDoc, updateDoc, arrayUnion } from "./acessarDB.js";
 
+
+window.onload = function() {
+    const email = document.getElementById('email').value;
+    const emailStatus = document.getElementById('emailStatus');
+    const sendEmailButton = document.getElementById('sendEmailButton');
+    const sendMessageButton = document.getElementById('sendMessageButton');
+
+    // Adiciona o evento de clique ao botão de enviar e-mail
+    sendEmailButton.addEventListener('click', function() {
+        sendEmail(email, emailStatus);
+    });
+
+    // Adiciona o evento de clique ao botão de enviar mensagem
+    sendMessageButton.addEventListener('click', function() {
+        sendMessage();
+    });
+}
 async function carregartabela() {
     const scheduleTable = document.getElementById('scheduleTable');
     //preenche a tabela
@@ -198,9 +215,8 @@ async function addEmail(emailnovo) {
     }
 }
 
-window.sendEmail = function () {
-    const email = document.getElementById('email').value;
-    const emailStatus = document.getElementById('emailStatus');
+window.sendEmail = function (email, emailStatus) {
+    
     if (email === ""){
         emailStatus.textContent = "O E-mail não pode estar vazio!.";
         
@@ -239,4 +255,33 @@ async function obterAula(diaSemana, aula) {
     }
 };
 
-carregartabela();
+function logoff() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = "index.html";
+}
+
+const token = localStorage.getItem('token');
+const user = localStorage.getItem('user');
+const tokendobanco = "TOKEN_ADMIN_123"; // token fictício obtido do banco
+const userdobanco = "admin"; // outro token fictício obtido do banco
+
+if (!token || !user) {
+    alert("Você não está logado. Redirecionando para a página de login.");
+    window.location.href = "index.html";
+} else { 
+    // Verifica se o token e o usuário estão corretos
+    if (token !== tokendobanco || user !== userdobanco) {
+        alert("Você não tem permissão para acessar esta página.");
+        window.location.href = "index.html";
+    } else {
+        alert("Bem-vindo, " + user + "!");
+        // Preencher a tabela com os dados do banco de dados
+        carregartabela();
+    }
+}
+
+const botaoLogoff = document.getElementById('btn-logoff');
+botaoLogoff.addEventListener('click', function () {
+    logoff();
+});

@@ -10,11 +10,12 @@ body {
 
 header {
     background-color: #a3cde7; /* Azul pastel */
-    color: #fff;
-    padding: 1rem;
+    color: white;
     text-align: center;
-    position: relative; /* Adiciona contexto de posicionamento */
+    padding: 1rem;
+    position: relative;
 }
+
 
 .btn-logoff {
     position: absolute;

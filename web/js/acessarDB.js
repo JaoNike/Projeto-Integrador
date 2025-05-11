@@ -79,23 +79,24 @@ export const horarioAulas = [
             quinta: {},
             sexta: {}
         }
-    ];
+];
 
-    const diasSemana = ["segunda-feira", "terca-feira", "quarta-feira", "quinta-feira", "sexta-feira"];
-    const aulas = ["aula 1", "aula 2", "aula 3", "aula 4", "aula 5"];
+const diasSemana = ["segunda-feira", "terca-feira", "quarta-feira", "quinta-feira", "sexta-feira"];
 
-    for (let i = 0; i < horarioAulas.length; i++) {
-        for (let j = 0; j < diasSemana.length; j++) {
-            const dadosAula = await obterAula(diasSemana[j], aulas[i]);
-            if (dadosAula) {
-                horarioAulas[i][diasSemana[j].replace("-feira", "")] = {
-                    disciplina: dadosAula.materia,
-                    professor: dadosAula.professor,
-                    sala: `Sala ${dadosAula.sala}`,
-                    tipo: dadosAula.tipo,
-                    //não era pra funcionar assim com 'ç' e 'ã' 
-                    duração: dadosAula.duração
-                };
-            }
+const aulas = ["aula 1", "aula 2", "aula 3", "aula 4", "aula 5"];
+
+for (let i = 0; i < horarioAulas.length; i++) {
+    for (let j = 0; j < diasSemana.length; j++) {
+        const dadosAula = await obterAula(diasSemana[j], aulas[i]);
+        if (dadosAula) {
+            horarioAulas[i][diasSemana[j].replace("-feira", "")] = {
+                disciplina: dadosAula.materia,
+                professor: dadosAula.professor,
+                sala: `Sala ${dadosAula.sala}`,
+                tipo: dadosAula.tipo,
+                //não era pra funcionar assim com 'ç' e 'ã' 
+                duração: dadosAula.duração
+            };
         }
     }
+}
