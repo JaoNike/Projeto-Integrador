@@ -45,7 +45,7 @@ Este repositório contém o **Projeto Integrador**, desenvolvido como Trabalho d
 projeto-integrador/
 ├── web/         # Código-fonte principal
 ├── web/style/   # Recursos estáticos (imagens, ícones)
-├── web/index.html # Página inicial
+├── web/page/index.html # Página inicial
 ├── web/js/      # Scripts JavaScript
 └── readme/      # Documentação do projeto
 
